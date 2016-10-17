@@ -91,7 +91,7 @@ var quotes = [
 
 function pickQuote() {
   var quote = quotes[Math.floor(Math.random() * quotes.length)]
-  return `"${quote.quote}" - ${quote.person}`
+  return `>"${quote.quote}" - ${quote.person}`
 }
 
 
