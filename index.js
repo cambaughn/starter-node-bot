@@ -27,8 +27,14 @@ if (token) {
   require('beepboop-botkit').start(controller, { debug: true })
 }
 
-controller.on('bot_channel_join', function (bot, message) {
-  bot.reply(message, "I'm here!")
+// controller.on('bot_channel_join', function (bot, message) {
+//   bot.reply(message, "I'm here!")
+// })
+
+// Main functionality
+
+controller.hears(['inspire, inspire me, quote'], ['direct_mention'], function(bot, message) {
+  bot.reply(message, pickQuote())
 })
 
 controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
@@ -44,15 +50,53 @@ controller.hears('.*', ['mention'], function (bot, message) {
   bot.reply(message, 'You really do care about me. :heart:')
 })
 
-controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
-  var help = 'I will respond to the following messages: \n' +
-      '`bot hi` for a simple message.\n' +
-      '`bot attachment` to see a Slack attachment message.\n' +
-      '`@<your bot\'s name>` to demonstrate detecting a mention.\n' +
-      '`bot help` to see this again.'
-  bot.reply(message, help)
-})
+// controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
+//   var help = 'I will respond to the following messages: \n' +
+//       '`bot hi` for a simple message.\n' +
+//       '`bot attachment` to see a Slack attachment message.\n' +
+//       '`@<your bot\'s name>` to demonstrate detecting a mention.\n' +
+//       '`bot help` to see this again.'
+//   bot.reply(message, help)
+// })
 
 controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
   bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
 })
+
+
+var quotes = [
+  {
+    quote: 'Failure is an option here. If things are not failing, you are not innovating enough.', 
+    person: 'Elon Musk'
+  },
+  {
+    quote: 'If something is important enough, even if the odds are against you, you should still do it.', 
+    person: 'Elon Musk'
+  },
+  {
+    quote: 'Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.',
+    person: 'Lao Tzu'
+  },
+  {
+    quote: 'The journey of a thousand miles begins with a single step.',
+    person: 'Lao Tzu'
+  },
+  {
+    quote: 'When I let go of what I am, I become what I might be.',
+    person: 'Lao Tzu'
+  }
+]
+
+
+function pickQuote() {
+  var quote = quotes[Math.floor(Math.random() * quotes.length)]
+  return `"${quote.quote}" - ${quote.person}`
+}
+
+
+console.log(pickQuote())
+
+
+
+
+
