@@ -94,7 +94,7 @@ var quotes = [
 
 function pickQuote(bot, message) {
   var quote = quotes[Math.floor(Math.random() * quotes.length)]
-  var response = `>"${quote.quote}" \n- ${quote.person}`
+  var response = `>"${quote.quote}" \n>- ${quote.person}`
   bot.reply(message, response)
 }
 
