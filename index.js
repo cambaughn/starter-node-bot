@@ -34,7 +34,8 @@ if (token) {
 // Main functionality
 
 controller.hears(['inspire, inspire me, quote'], ['direct_mention'], function(bot, message) {
-  bot.reply(message, pickQuote())
+  var response = pickQuote();
+  bot.reply(message, response)
 })
 
 controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
@@ -92,9 +93,6 @@ function pickQuote() {
   var quote = quotes[Math.floor(Math.random() * quotes.length)]
   return `"${quote.quote}" - ${quote.person}`
 }
-
-
-console.log(pickQuote())
 
 
 
