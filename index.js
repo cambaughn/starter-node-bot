@@ -33,7 +33,7 @@ if (token) {
 
 // Main functionality
 
-controller.hears(['inspire, inspire me, quote'], ['direct_mention'], function(bot, message) {
+controller.hears(['inspire', 'inspire me', 'quote'], ['direct_mention'], function(bot, message) {
   var response = pickQuote();
   bot.reply(message, response)
 })
