@@ -33,11 +33,13 @@ if (token) {
 
 // Main functionality
 
-controller.hears(['inspire', 'inspire me', 'quote'], ['direct_mention'], function(bot, message) {
-  var response = pickQuote();
-  bot.reply(message, response)
-})
+// Quote functionality
+controller.hears(['inspire', 'inspire me', 'quote'], ['direct_mention'], pickQuote)
 
+controller.hears(['inspire', 'inspire me', 'quote'], ['direct_message'], pickQuote)
+
+
+// Say hi!
 controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
   bot.reply(message, 'What\s up.')
 })
@@ -47,6 +49,7 @@ controller.hears(['hello', 'hi'], ['direct_message'], function (bot, message) {
   bot.reply(message, 'It\'s nice to talk to you directly.')
 })
 
+// Else
 controller.hears('.*', ['mention'], function (bot, message) {
   bot.reply(message, 'You really do care about me. :heart:')
 })
@@ -89,9 +92,10 @@ var quotes = [
 ]
 
 
-function pickQuote() {
+function pickQuote(bot, message) {
   var quote = quotes[Math.floor(Math.random() * quotes.length)]
-  return `>"${quote.quote}" - ${quote.person}`
+  var response = `>"${quote.quote}" \n- ${quote.person}`
+  bot.reply(message, response)
 }
 
 
